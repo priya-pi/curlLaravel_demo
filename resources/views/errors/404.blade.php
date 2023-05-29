@@ -233,8 +233,7 @@
     <div class="cloud x5"></div>
 </div>
 <div class='c'>
-    <div class='_404'>404</div><br>
-    
+    <div class='_404'>404</div>
     <hr>
     <div class='_1'>THE PAGE</div><br>
     <div class='_2'>WAS NOT FOUND</div><br>
