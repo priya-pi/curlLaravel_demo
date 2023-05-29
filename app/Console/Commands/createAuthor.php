@@ -32,7 +32,7 @@ class createAuthor extends Command
     {
         $response = Http::withoutVerifying()
             ->accept('application/json')
-            ->post(env('BASE_URL')."token", [
+            ->post(env('BASE_URL') . 'token', [
                 'email' => config('constants.EMAIL'),
                 'password' => config('constants.PASSWORD'),
             ]);
@@ -43,12 +43,14 @@ class createAuthor extends Command
         $count = $this->argument('count');
 
         for ($i = 0; $i < $count; $i++) {
-
             $first_name = $this->ask('Enter first name');
             $last_name = $this->ask('Enter last name');
             $birthday = $this->ask('Enter birthday');
             $biography = $this->ask('Enter biography');
-            $gender = $this->anticipate('Enter your gender', ['female', 'male']);
+            $gender = $this->anticipate('Enter your gender', [
+                'female',
+                'male',
+            ]);
             $place_of_birth = $this->ask('Enter place_of_birth');
 
             $validator = Validator::make(
@@ -60,11 +62,11 @@ class createAuthor extends Command
                     'place_of_birth' => $place_of_birth,
                 ],
                 [
-                    'first_name' => ['required','regex:/^[a-zA-Z ]*$/'],
-                    'last_name' => ['required','regex:/^[a-zA-Z ]*$/'],
-                    'birthday' => ['required','date','date_format:Y-m-d'],
+                    'first_name' => ['required', 'regex:/^[a-zA-Z ]*$/'],
+                    'last_name' => ['required', 'regex:/^[a-zA-Z ]*$/'],
+                    'birthday' => ['required', 'date', 'date_format:Y-m-d'],
                     'biography' => ['regex:/^[a-zA-Z ]*$/'],
-                    'place_of_birth' => ['required','regex:/^[a-zA-Z ]*$/'],
+                    'place_of_birth' => ['required', 'regex:/^[a-zA-Z ]*$/'],
                 ]
             );
 
@@ -74,29 +76,28 @@ class createAuthor extends Command
                 foreach ($validator->errors()->all() as $error) {
                     $this->error($error);
                 }
-
             } else {
-                    $data = [
-                        'first_name' => $first_name,
-                        'last_name' => $last_name,
-                        'birthday' => $birthday,
-                        'biography' => $biography,
-                        'gender' => $gender,
-                        'place_of_birth' => $place_of_birth,
-                    ];
+                $data = [
+                    'first_name' => $first_name,
+                    'last_name' => $last_name,
+                    'birthday' => $birthday,
+                    'biography' => $biography,
+                    'gender' => $gender,
+                    'place_of_birth' => $place_of_birth,
+                ];
 
-                    $response = Http::withToken($token)
-                        ->withoutVerifying()
-                        ->accept('application/json')
-                        ->post(env('BASE_URL') . 'authors',$data);
+                $response = Http::withToken($token)
+                    ->withoutVerifying()
+                    ->accept('application/json')
+                    ->post(env('BASE_URL') . 'authors', $data);
 
-                    if ($response->clientError()) {
-                        $this->error('something went wrong...!');
-                    } else {
-                        $this->info('Author successfully created..!');
-                    }
-                    Log::info($response);
+                if ($response->clientError()) {
+                    $this->error('something went wrong...!');
+                } else {
+                    $this->info('Author successfully created..!');
                 }
+                Log::info($response);
+            }
         }
     }
 }
