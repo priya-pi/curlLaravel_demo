@@ -24,14 +24,20 @@ use App\Http\Controllers\BookController;
 //     return view('welcome');
 // });
 
+
+//LOGIN
 Route::get('/',[registerController::class,'index']);
 Route::post('/',[registerController::class,'loginAuth']);
 Route::get('/logout',[registerController::class,'logout']);
 
+//DASHBOARD
 Route::get('dashboard',[DashboardController::class,'getAuthors'])->name('dashboard');
-Route::delete('/dashboard/delete/{author}',[AuthorController::class,'deleteAuthor'])->name('delete');
 
+//AUTHOR
+Route::delete('/dashboard/delete/{author}',[AuthorController::class,'deleteAuthor'])->name('delete');
 Route::get('/singleAuthor/{author}',[AuthorController::class,'singleAuthor']);
+
+//BOOK
 Route::delete('/singleAuthor/delete/{book}',[BookController::class,'bookDelete'])->name('delete');
 Route::get('/create',[BookController::class,'addBook'])->name('create');
 Route::post('/create',[BookController::class,'store'])->name('create');
