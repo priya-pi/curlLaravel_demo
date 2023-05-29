@@ -32,7 +32,7 @@ class createAuthor extends Command
     {
         $response = Http::withoutVerifying()
             ->accept('application/json')
-            ->post('https://symfony-skeleton.q-tests.com/api/v2/token', [
+            ->post(env('BASE_URL')."token", [
                 'email' => config('constants.EMAIL'),
                 'password' => config('constants.PASSWORD'),
             ]);
@@ -88,7 +88,7 @@ class createAuthor extends Command
                     $response = Http::withToken($token)
                         ->withoutVerifying()
                         ->accept('application/json')
-                        ->post('https://symfony-skeleton.q-tests.com/api/v2/authors',$data);
+                        ->post(env('BASE_URL') . 'authors',$data);
 
                     if ($response->clientError()) {
                         $this->error('something went wrong...!');
