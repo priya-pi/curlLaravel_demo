@@ -28,7 +28,7 @@ class createAuthor extends Command
     /**
      * Execute the console command.
      */
-    public function handle(): void
+    public function handle()
     {
         $response = Http::withoutVerifying()
             ->accept('application/json')
