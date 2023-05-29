@@ -56,13 +56,15 @@ class createAuthor extends Command
                     'first_name' => $first_name,
                     'last_name' => $last_name,
                     'birthday' => $birthday,
+                    'biography' => $biography,
                     'place_of_birth' => $place_of_birth,
                 ],
                 [
-                    'first_name' => ['required'],
-                    'last_name' => ['required'],
-                    'birthday' => ['required'],
-                    'place_of_birth' => ['required'],
+                    'first_name' => ['required','regex:/^[a-zA-Z ]*$/'],
+                    'last_name' => ['required','regex:/^[a-zA-Z ]*$/'],
+                    'birthday' => ['required','date','date_format:Y-m-d'],
+                    'biography' => ['regex:/^[a-zA-Z ]*$/'],
+                    'place_of_birth' => ['required','regex:/^[a-zA-Z ]*$/'],
                 ]
             );
 
