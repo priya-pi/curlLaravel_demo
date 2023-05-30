@@ -37,6 +37,7 @@ Route::get('dashboard',[DashboardController::class,'getAuthors'])->name('dashboa
 Route::delete('/dashboard/delete/{author}',[AuthorController::class,'deleteAuthor'])->name('delete');
 Route::get('/singleAuthor/{author}',[AuthorController::class,'singleAuthor']);
 
+
 //BOOK
 Route::delete('/singleAuthor/delete/{book}',[BookController::class,'bookDelete'])->name('delete');
 Route::get('/create',[BookController::class,'addBook'])->name('create');
