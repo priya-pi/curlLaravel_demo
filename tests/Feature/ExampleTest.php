@@ -10,10 +10,29 @@ class ExampleTest extends TestCase
     /**
      * A basic test example.
      */
-    public function test_the_application_returns_a_successful_response(): void
+    public function test_that_true_is_true(): void
     {
-        $response = $this->get('/');
+        $this->assertTrue(true);
+    }
 
-        $response->assertStatus(200);
+    public function test_asserting_an_exact_json_match(): void
+    {
+
+        $data = [
+            'email' => 'ahsoka.tano@q.agency',
+            'password' => ' Kryze4President',
+        ];
+
+        $response = $this->withHeaders([
+            'Content-Type' => 'application/json',
+        ])->json('POST', env('BASE_URL') . 'token', $data);
+
+        $response->dumpHeaders();
+        $response->dd($response);
+        $response->assertStatus(200)->assertJson([
+            'status' => "success",
+            'msg' => 'Completed'
+        ]);
+        $this->withoutExceptionHandling();
     }
 }
