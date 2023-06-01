@@ -14,25 +14,4 @@ class ExampleTest extends TestCase
     {
         $this->assertTrue(true);
     }
-
-    public function test_asserting_an_exact_json_match(): void
-    {
-
-        $data = [
-            'email' => 'ahsoka.tano@q.agency',
-            'password' => ' Kryze4President',
-        ];
-
-        $response = $this->withHeaders([
-            'Content-Type' => 'application/json',
-        ])->json('POST', env('BASE_URL') . 'token', $data);
-
-        $response->dumpHeaders();
-        $response->dd($response);
-        $response->assertStatus(200)->assertJson([
-            'status' => "success",
-            'msg' => 'Completed'
-        ]);
-        $this->withoutExceptionHandling();
-    }
 }
