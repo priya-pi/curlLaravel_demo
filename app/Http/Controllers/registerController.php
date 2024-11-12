@@ -16,10 +16,12 @@ class registerController extends Controller
 
     public function loginAuth(Request $request)
     {
+
         $this->validate($request, [
             'email' => 'required|email',
             'pass' => 'required',
         ]);
+
 
         $data['email'] = $request->email;
         $data['password'] = $request->pass;
